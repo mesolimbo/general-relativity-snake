@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>General Relativity Snake - Phaser Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="titleContainer" class="game-title-container"></div>
+
+    <div class="score-panel-top max-w-[400px]">
+      <span>Score: <span id="score">0</span></span>
+      <span>High Score: <span id="highScore">0</span></span>
+    </div>
+
+    <!-- Phaser Container -->
+    <div id="phaser-game"></div>
+
+    <button id="startButton" class="start-button">START GAME</button>
+
+    <div class="dpad-container">
+      <button class="control-button up" data-direction="UP">▲</button>
+      <button class="control-button left" data-direction="LEFT">◀</button>
+      <div class="center"></div>
+      <button class="control-button right" data-direction="RIGHT">▶</button>
+      <button class="control-button down" data-direction="DOWN">▼</button>
+    </div>
+
+    <div id="gameOverModal" class="modal hidden">
+      <div class="modal-content">
+        <h2 class="text-3xl font-bold text-[#00ff80] mb-4">GAME OVER!</h2>
+        <p class="text-xl mb-4">
+          Your Final Score: <span id="finalScore" class="font-bold text-white">0</span>
+        </p>
+        <button id="restartButton" class="start-button">PLAY AGAIN</button>
+      </div>
+    </div>
+  </body>
+</html>
