@@ -2,13 +2,11 @@ export class UIManager {
   private highScore: number;
   private startButton: HTMLElement | null;
   private gameOverMessage: HTMLElement | null;
-  private loadingScreen: HTMLElement | null;
 
   constructor() {
     this.highScore = parseInt(localStorage.getItem('snakeHighScore') || '0', 10);
     this.startButton = document.getElementById('startButton');
     this.gameOverMessage = document.getElementById('gameOverMessage');
-    this.loadingScreen = document.getElementById('loading-screen');
 
     this.updateHighScore();
     this.setupEventListeners();
@@ -16,27 +14,8 @@ export class UIManager {
   }
 
   private initializeUI(): void {
-    // Wait for Phaser to be ready, then show UI
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        // Fade out loading screen
-        if (this.loadingScreen) {
-          this.loadingScreen.classList.add('fade-out');
-          setTimeout(() => {
-            if (this.loadingScreen && this.loadingScreen.parentNode) {
-              this.loadingScreen.parentNode.removeChild(this.loadingScreen);
-            }
-          }, 300);
-        }
-
-        // Create and show title
-        this.createWarpedTitle();
-        const titleContainer = document.getElementById('titleContainer');
-        if (titleContainer) {
-          setTimeout(() => titleContainer.classList.add('loaded'), 50);
-        }
-      }, 100);
-    });
+    // Create the warped title immediately
+    this.createWarpedTitle();
   }
 
   private updateHighScore(): void {

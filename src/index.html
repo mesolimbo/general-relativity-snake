@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>General Relativity Snake - Phaser Edition</title>
+    <style>
+      /* Inline styles to prevent FOUC and set background immediately */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #161b22;
+        overflow: hidden;
+      }
+      #app-container {
+        opacity: 0;
+        transition: opacity 0.3s ease-in;
+      }
+      #app-container.loaded {
+        opacity: 1;
+      }
+    </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
@@ -11,31 +27,40 @@
     />
   </head>
   <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen"></div>
+    <div id="app-container">
+      <!-- Loading Screen -->
+      <div id="loading-screen"></div>
 
-    <div id="titleContainer" class="game-title-container"></div>
+      <div id="titleContainer" class="game-title-container"></div>
 
-    <div class="score-panel-top max-w-[400px]">
-      <span>Score: <span id="score">0</span></span>
-      <span>High Score: <span id="highScore">0</span></span>
+      <div class="score-panel-top max-w-[400px]">
+        <span>Score: <span id="score">0</span></span>
+        <span>High Score: <span id="highScore">0</span></span>
+      </div>
+
+      <!-- Phaser Container -->
+      <div id="phaser-game"></div>
+
+      <!-- Button Container with fixed height -->
+      <div class="button-container">
+        <div id="gameOverMessage" class="game-over-message" style="display: none;"></div>
+        <button id="startButton" class="start-button">START GAME</button>
+      </div>
+
+      <div class="dpad-container">
+        <button class="control-button up" data-direction="UP">▲</button>
+        <button class="control-button left" data-direction="LEFT">◀</button>
+        <div class="center"></div>
+        <button class="control-button right" data-direction="RIGHT">▶</button>
+        <button class="control-button down" data-direction="DOWN">▼</button>
+      </div>
     </div>
-
-    <!-- Phaser Container -->
-    <div id="phaser-game"></div>
-
-    <!-- Button Container with fixed height -->
-    <div class="button-container">
-      <div id="gameOverMessage" class="game-over-message" style="display: none;"></div>
-      <button id="startButton" class="start-button">START GAME</button>
-    </div>
-
-    <div class="dpad-container">
-      <button class="control-button up" data-direction="UP">▲</button>
-      <button class="control-button left" data-direction="LEFT">◀</button>
-      <div class="center"></div>
-      <button class="control-button right" data-direction="RIGHT">▶</button>
-      <button class="control-button down" data-direction="DOWN">▼</button>
-    </div>
+    <script>
+      // Show content only after all resources are loaded
+      window.addEventListener('load', function() {
+        document.getElementById('app-container').classList.add('loaded');
+      });
+    </script>
   </body>
 </html>
+

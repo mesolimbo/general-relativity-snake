@@ -185,6 +185,15 @@ export class MainScene extends Phaser.Scene {
       this.score++;
       const scoreElement = document.getElementById('score');
       if (scoreElement) scoreElement.textContent = this.score.toString();
+
+      // Update high score in real-time if current score exceeds it
+      const currentHighScore = parseInt(localStorage.getItem('snakeHighScore') || '0', 10);
+      if (this.score > currentHighScore) {
+        localStorage.setItem('snakeHighScore', this.score.toString());
+        const highScoreElement = document.getElementById('highScore');
+        if (highScoreElement) highScoreElement.textContent = this.score.toString();
+      }
+
       this.placeFood();
     } else {
       this.snake.pop();

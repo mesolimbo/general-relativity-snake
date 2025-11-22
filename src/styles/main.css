@@ -1,24 +1,12 @@
-/* Loading Screen */
+/* Loading Screen - Hidden, using opacity approach in HTML instead */
 #loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000000;
-  z-index: 9999;
-  transition: opacity 0.3s ease-out;
-}
-
-#loading-screen.fade-out {
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 
 /* General Styles */
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #0d1117;
+  background-color: #161b22;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,12 +28,6 @@ body {
   box-sizing: border-box;
   padding: 0 2px;
   min-height: 50px; /* Reserve space for title to prevent layout shift */
-  opacity: 0;
-  transition: opacity 0.3s ease-in;
-}
-
-.game-title-container.loaded {
-  opacity: 1;
 }
 
 .title-char {
