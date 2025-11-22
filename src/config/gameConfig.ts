@@ -9,6 +9,10 @@ export const config: Phaser.Types.Core.GameConfig = {
   height: CANVAS_SIZE,
   parent: 'phaser-game',
   backgroundColor: '#161b22',
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
   scene: [PreloadScene, MainScene],
   physics: {
     default: 'arcade',

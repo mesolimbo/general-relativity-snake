@@ -40,15 +40,28 @@ export class UIManager {
       }
     });
 
-    // Mobile Controls
-    const dpadButtons = document.querySelectorAll('.dpad-container .control-button');
-    dpadButtons.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
+    // Touch Controls for Mobile
+    const touchRegions = document.querySelectorAll('.touch-region');
+    touchRegions.forEach((region) => {
+      const handleTouch = (e: Event) => {
         const target = e.target as HTMLElement;
         const dir = target.dataset.direction;
-        if (dir && (window as any).setDirectionPhaser) {
+
+        // Easter egg: Start/restart game with tap if button is visible
+        const startButton = document.getElementById('startButton') as HTMLButtonElement;
+        if (startButton && startButton.offsetParent !== null) {
+          startButton.click();
+        } else if (dir && (window as any).setDirectionPhaser) {
+          // Game is running, handle direction
           (window as any).setDirectionPhaser(dir);
         }
+      };
+
+      region.addEventListener('click', handleTouch);
+      // Also handle touch events for better mobile support
+      region.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        handleTouch(e);
       });
     });
 
