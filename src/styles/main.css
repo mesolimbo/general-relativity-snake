@@ -1,3 +1,20 @@
+/* Loading Screen */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 9999;
+  transition: opacity 0.3s ease-out;
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* General Styles */
 body {
   font-family: 'Inter', sans-serif;
@@ -22,6 +39,13 @@ body {
   margin-bottom: 24px;
   box-sizing: border-box;
   padding: 0 2px;
+  min-height: 50px; /* Reserve space for title to prevent layout shift */
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.game-title-container.loaded {
+  opacity: 1;
 }
 
 .title-char {
@@ -56,6 +80,18 @@ body {
   overflow: hidden;
 }
 
+/* Button Container - Fixed height to prevent layout shift */
+.button-container {
+  min-height: 120px; /* Enough for game over message + button */
+  margin-top: 20px;
+  width: 400px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 /* Buttons */
 .start-button {
   background-color: #238636;
@@ -63,20 +99,35 @@ body {
   padding: 12px 20px;
   border-radius: 8px;
   font-weight: 700;
-  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s, opacity 0.2s;
   box-shadow: 0 4px #1c6b29;
   user-select: none;
   cursor: pointer;
   text-align: center;
-  margin-top: 20px;
-  width: 400px;
-  max-width: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
 }
 
 .start-button:active {
   background-color: #1c6b29;
   transform: translateY(2px);
   box-shadow: 0 2px #1c6b29;
+}
+
+.start-button.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Game Over Message */
+.game-over-message {
+  color: #ff4d4f;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(255, 77, 79, 0.8);
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 /* D-Pad (Mobile) */

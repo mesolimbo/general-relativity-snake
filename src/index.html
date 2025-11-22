@@ -11,6 +11,9 @@
     />
   </head>
   <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen"></div>
+
     <div id="titleContainer" class="game-title-container"></div>
 
     <div class="score-panel-top max-w-[400px]">
@@ -21,7 +24,11 @@
     <!-- Phaser Container -->
     <div id="phaser-game"></div>
 
-    <button id="startButton" class="start-button">START GAME</button>
+    <!-- Button Container with fixed height -->
+    <div class="button-container">
+      <div id="gameOverMessage" class="game-over-message" style="display: none;"></div>
+      <button id="startButton" class="start-button">START GAME</button>
+    </div>
 
     <div class="dpad-container">
       <button class="control-button up" data-direction="UP">▲</button>
@@ -29,16 +36,6 @@
       <div class="center"></div>
       <button class="control-button right" data-direction="RIGHT">▶</button>
       <button class="control-button down" data-direction="DOWN">▼</button>
-    </div>
-
-    <div id="gameOverModal" class="modal hidden">
-      <div class="modal-content">
-        <h2 class="text-3xl font-bold text-[#00ff80] mb-4">GAME OVER!</h2>
-        <p class="text-xl mb-4">
-          Your Final Score: <span id="finalScore" class="font-bold text-white">0</span>
-        </p>
-        <button id="restartButton" class="start-button">PLAY AGAIN</button>
-      </div>
     </div>
   </body>
 </html>

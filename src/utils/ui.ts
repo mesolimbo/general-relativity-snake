@@ -1,18 +1,42 @@
 export class UIManager {
   private highScore: number;
   private startButton: HTMLElement | null;
-  private restartButton: HTMLElement | null;
-  private gameOverModal: HTMLElement | null;
+  private gameOverMessage: HTMLElement | null;
+  private loadingScreen: HTMLElement | null;
 
   constructor() {
     this.highScore = parseInt(localStorage.getItem('snakeHighScore') || '0', 10);
     this.startButton = document.getElementById('startButton');
-    this.restartButton = document.getElementById('restartButton');
-    this.gameOverModal = document.getElementById('gameOverModal');
+    this.gameOverMessage = document.getElementById('gameOverMessage');
+    this.loadingScreen = document.getElementById('loading-screen');
 
     this.updateHighScore();
     this.setupEventListeners();
-    this.createWarpedTitle();
+    this.initializeUI();
+  }
+
+  private initializeUI(): void {
+    // Wait for Phaser to be ready, then show UI
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        // Fade out loading screen
+        if (this.loadingScreen) {
+          this.loadingScreen.classList.add('fade-out');
+          setTimeout(() => {
+            if (this.loadingScreen && this.loadingScreen.parentNode) {
+              this.loadingScreen.parentNode.removeChild(this.loadingScreen);
+            }
+          }, 300);
+        }
+
+        // Create and show title
+        this.createWarpedTitle();
+        const titleContainer = document.getElementById('titleContainer');
+        if (titleContainer) {
+          setTimeout(() => titleContainer.classList.add('loaded'), 50);
+        }
+      }, 100);
+    });
   }
 
   private updateHighScore(): void {
@@ -23,19 +47,15 @@ export class UIManager {
   }
 
   private setupEventListeners(): void {
-    // Start Game
+    // Start/Restart Game
     this.startButton?.addEventListener('click', () => {
+      // Hide button and message while playing
       if (this.startButton) {
-        this.startButton.style.display = 'none';
+        this.startButton.classList.add('hidden');
       }
-      if ((window as any).startGamePhaser) {
-        (window as any).startGamePhaser();
+      if (this.gameOverMessage) {
+        this.gameOverMessage.style.display = 'none';
       }
-    });
-
-    // Restart Game
-    this.restartButton?.addEventListener('click', () => {
-      this.gameOverModal?.classList.add('hidden');
       if ((window as any).startGamePhaser) {
         (window as any).startGamePhaser();
       }
@@ -55,12 +75,16 @@ export class UIManager {
 
     // Setup global game over handler
     (window as any).triggerGameOver = (score: number) => {
-      if (this.startButton) {
-        this.startButton.style.display = 'block';
+      // Show game over message
+      if (this.gameOverMessage) {
+        this.gameOverMessage.textContent = `GAME OVER! Final Score: ${score}`;
+        this.gameOverMessage.style.display = 'block';
       }
-      const finalScoreElement = document.getElementById('finalScore');
-      if (finalScoreElement) {
-        finalScoreElement.textContent = score.toString();
+
+      // Show button with new text
+      if (this.startButton) {
+        this.startButton.textContent = 'PLAY AGAIN';
+        this.startButton.classList.remove('hidden');
       }
 
       // Update High Score
@@ -69,8 +93,6 @@ export class UIManager {
         localStorage.setItem('snakeHighScore', this.highScore.toString());
         this.updateHighScore();
       }
-
-      this.gameOverModal?.classList.remove('hidden');
     };
   }
 
