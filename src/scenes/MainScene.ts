@@ -140,6 +140,24 @@ export class MainScene extends Phaser.Scene {
         this.handleDirectionInput('LEFT');
       else if (this.cursors.right.isDown || this.dKey.isDown)
         this.handleDirectionInput('RIGHT');
+    } else {
+      // Easter egg: Start/restart game with any arrow key
+      if (
+        this.cursors.up.isDown ||
+        this.cursors.down.isDown ||
+        this.cursors.left.isDown ||
+        this.cursors.right.isDown ||
+        this.wKey.isDown ||
+        this.aKey.isDown ||
+        this.sKey.isDown ||
+        this.dKey.isDown
+      ) {
+        const startButton = document.getElementById('startButton') as HTMLButtonElement;
+        if (startButton && startButton.offsetParent !== null) {
+          // Simulate click to trigger the same behavior
+          startButton.click();
+        }
+      }
     }
 
     if (!this.isGameStarted) {
