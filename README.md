@@ -2,7 +2,7 @@
 
 🌊 **GitHub Game Off 2025 - WAVES** 🌊
 
-Experience Snake like never before! Watch as your snake creates **gravitational waves** that ripple through spacetime, warping the fabric of reality itself.
+Experience Snake like never before! Watch as your snake generates **gravitational waves** that ripple through spacetime, warping the fabric of reality itself.
 
 This unique interpretation of the classic game visualizes how massive objects create waves in the gravitational field, bending and distorting everything around them.
 
